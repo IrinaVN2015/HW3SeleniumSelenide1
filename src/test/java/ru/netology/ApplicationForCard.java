@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 public class ApplicationForCard {
-    private WebDriver driver;
+
 
     @BeforeAll
     static void setupAll() {
@@ -24,15 +24,10 @@ public class ApplicationForCard {
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+
         open("http://localhost:9999");
     }
 
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-        driver = null;
-    }
 
     @Test
     void CorrectValueOnlyNameTest() {
