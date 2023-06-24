@@ -16,7 +16,6 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationForCard {
 
-
     @BeforeAll
     static void setupAll() {
         WebDriverManager.chromedriver().setup();
@@ -27,7 +26,6 @@ public class ApplicationForCard {
 
         open("http://localhost:9999");
     }
-
 
     @Test
     void CorrectValueOnlyNameTest() {
@@ -129,4 +127,27 @@ public class ApplicationForCard {
         form.$(".button").click();
         $("[data-test-id=agreement].input_invalid").shouldHave(Condition.text("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
     }
+
+    @Test
+    void IncorrectValueFieldNameEmptyTest() {
+
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("");
+        form.$("[data-test-id=phone] input").setValue("+79315684561");
+        form.$("[data-test-id=agreement]").click();
+        form.$(".button").click();
+        $("[data-test-id=name].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
+    }
+
+    @Test
+    void IncorrectValueFieldPhoneEmptyTest() {
+
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("Мария Петрова");
+        form.$("[data-test-id=phone] input").setValue("");
+        form.$("[data-test-id=agreement]").click();
+        form.$(".button").click();
+        $("[data-test-id=phone].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
+    }
+
 }
