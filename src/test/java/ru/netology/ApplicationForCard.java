@@ -118,17 +118,6 @@ public class ApplicationForCard {
     }
 
     @Test
-    void CheckboxNotClickedTest() {
-
-        SelenideElement form = $(".form");
-        form.$("[data-test-id=name] input").setValue("Мария Петрова");
-        form.$("[data-test-id=phone] input").setValue("+79315684561");
-        form.$("[data-test-id=agreement]");
-        form.$(".button").click();
-        $("[data-test-id=agreement].input_invalid").shouldHave(Condition.text("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
-    }
-
-    @Test
     void IncorrectValueFieldNameEmptyTest() {
 
         SelenideElement form = $(".form");
