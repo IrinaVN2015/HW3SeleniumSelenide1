@@ -16,19 +16,14 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationForCard {
 
-    @BeforeAll
-    static void setupAll() {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @BeforeEach
     void setUp() {
-
         open("http://localhost:9999");
     }
 
+
     @Test
-    void CorrectValueOnlyNameTest() {
+    void correctValueOnlyNameTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Мария");
@@ -39,7 +34,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void CorrectValueNameSurnameTest() {
+    void correctValueNameSurnameTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Мария Петрова");
@@ -50,7 +45,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void CorrectValueWithDashTest() {
+    void correctValueWithDashTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Анна-Мария Петрова-Водкина");
@@ -61,7 +56,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void CorrectValueNameLargeLettersTest() {
+    void correctValueNameLargeLettersTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("АННА-МАРИЯ Петрова-Водкина");
@@ -73,7 +68,7 @@ public class ApplicationForCard {
 
 
     @Test
-    void IncorrectValuePhoneWithLetterTest() {
+    void incorrectValuePhoneWithLetterTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Мария Петрова-Водкина");
@@ -84,7 +79,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void IncorrectValueNameLatTest() {
+    void incorrectValueNameLatTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Irina");
@@ -95,7 +90,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void IncorrectValueFirstLetterOfNameLatTest() {
+    void incorrectValueFirstLetterOfNameLatTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Mария Петрова");
@@ -106,7 +101,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void IncorrectValuePhone12DigitsTest() {
+    void incorrectValuePhone12DigitsTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Мария Петрова");
@@ -117,8 +112,9 @@ public class ApplicationForCard {
 
     }
 
+
     @Test
-    void IncorrectValueFieldNameEmptyTest() {
+    void incorrectValueFieldNameEmptyTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("");
@@ -129,7 +125,7 @@ public class ApplicationForCard {
     }
 
     @Test
-    void IncorrectValueFieldPhoneEmptyTest() {
+    void incorrectValueFieldPhoneEmptyTest() {
 
         SelenideElement form = $(".form");
         form.$("[data-test-id=name] input").setValue("Мария Петрова");
@@ -139,4 +135,14 @@ public class ApplicationForCard {
         $("[data-test-id=phone].input_invalid .input__sub").shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
 
+    @Test
+    void checkboxNotClickedTest() {
+
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("Мария Петрова");
+        form.$("[data-test-id=phone] input").setValue("+79315684561");
+        form.$("[data-test-id=agreement]");
+        form.$(".button").click();
+        $("[data-test-id=agreement].input_invalid").shouldHave(Condition.text("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
+    }
 }
